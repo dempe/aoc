@@ -1,23 +1,24 @@
-
 from typing import List
+from hashlib import md5
 
-def get_input(path: str) -> List[str]:
-    with open(path) as f:
-        return [line.strip() for line in f]
+SECRET_KEY = 'ckczppom'
 
-def part_one(lines: List[str]) -> int:
-    total = 0
-    for line in lines:
-        pass
-    return total
+def part_one() -> int:
+    for i in range(1, 10 ** 9):
+        key = f"{SECRET_KEY}{str(i)}"
+        if md5(key.encode()).hexdigest().startswith("00000"):
+            return i
 
-def part_two(lines: List[str]) -> int:
-    total = 0
-    for line in lines:
-        pass
-    return total
+    return 0
+
+def part_two() -> int:
+    for i in range(1, 10 ** 9):
+        key = f"{SECRET_KEY}{str(i)}"
+        if md5(key.encode()).hexdigest().startswith("000000"):
+            return i
+
+    return 0
 
 if __name__ == '__main__':
-    lines = get_input('04_input.txt')
-    print(part_one(lines))
-    print(part_two(lines))
+    print(part_one())
+    print(part_two())
