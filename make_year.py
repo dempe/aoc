@@ -27,12 +27,16 @@ if __name__ == '__main__':
 """
 
 def fill_dir(year: str) -> None:
-    Path(year).mkdir()
+    Path(year).mkdir(exist_ok=True)
+
     for i in range(1, 26):
         day = str(i).zfill(2)
-        with open(f"./{year}/{day}.py", 'w') as f:
+        path = Path(f"./{year}/{day}.py")
+
+        if path.exists(): continue  # Don't overwrite progress
+
+        with path.open('w') as f:
             f.write(TEMPLATE.format(day=day))
 
 if __name__ == '__main__':
-    year = sys.argv[1]
-    fill_dir(year)
+    fill_dir(sys.argv[1])
